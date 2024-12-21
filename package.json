@@ -1,0 +1,19 @@
+{
+  "name": "iot-monitor",
+  "version": "1.0.0",
+  "description": "App for energy efficiency monitoring system",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/demetrisKPI/iot-monitor.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/demetrisKPI/iot-monitor/issues"
+  },
+  "homepage": "https://github.com/demetrisKPI/iot-monitor#readme"
+}
