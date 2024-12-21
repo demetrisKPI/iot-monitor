@@ -1,6 +1,5 @@
-const { generateEnergyLogs } = require('../mockData/dataGen.js');
-
 require('dotenv').config({ silent: true });
+const { generateEnergyLogs } = require('../device/sensor/generateData.js');
 
 describe('Generate mock data', () => {
   test('Generate mock sensor data for energy consumptionin 1 hour', () => {

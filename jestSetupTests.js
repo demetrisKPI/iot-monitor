@@ -1,19 +1,8 @@
-const aedes = require('./src/mqtt/broker/index.js');
-
 jest.useFakeTimers();
 
-let mqttBroker, mqttServer;
+beforeAll(() => {});
 
-beforeAll(() => {
-  const { broker, server } = aedes.start();
-  mqttBroker = broker;
-  mqttServer = server;
-});
-
-afterAll(() => {
-  mqttBroker.close();
-  mqttServer.close();
-});
+afterAll(() => {});
 
 expect.extend({
   toBeAnything() {

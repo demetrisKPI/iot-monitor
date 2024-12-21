@@ -1,4 +1,4 @@
-const SUBTOPICS = ['test', 'sub'];
+const SUBTOPICS = ['test', 'sub', 'log'];
 
 const REDIS_CONFIG = {
   host: process.env.REDIS_HOST_URL,

@@ -1,29 +1,24 @@
+require('dotenv').config({ silent: true });
+
 const { createServer } = require('net');
 const aedes = require('aedes');
 const mqemitter = require('mqemitter-redis');
 const logging = require('aedes-logging');
 const persistence = require('aedes-persistence-redis');
 
-const logger = require('../../util/logger.js');
+const logger = require('../util/logger.js');
 
-const { REDIS_CONFIG, SUBTOPICS } = require('../../util/constants.js');
+const { REDIS_CONFIG, SUBTOPICS } = require('../util/constants.js');
 
-const {
-  MQTT_ADMIN_USER,
-  MQTT_ADMIN_PASSWORD,
-  BROKER_PORT,
-  MQTT_DEVICE_PASSWORD,
-} = process.env;
+const { MQTT_USER, MQTT_PASSWORD, BROKER_PORT } = process.env;
 
 const port = BROKER_PORT || 1883;
 
 const getClientRole = ({ username, password }) => {
-  if (username === MQTT_ADMIN_USER && password === MQTT_ADMIN_PASSWORD) {
+  if (username === MQTT_USER && password === MQTT_PASSWORD) {
     return 'admin';
   }
-  if (username && password === MQTT_DEVICE_PASSWORD) {
-    return 'device';
-  }
+
   return '';
 };
 
@@ -46,10 +41,6 @@ const authorizePublish = (client, packet, callback) => {
 
   logger.info({ username, role, topic, subtopic }, 'authorizePublish');
 
-  if (role === 'device' && !SUBTOPICS.includes(subtopic)) {
-    callback(new Error('Invalid topic'));
-  }
-
   callback(null);
 };
 
@@ -60,10 +51,6 @@ const authorizeSubscribe = (client, subscription, callback) => {
   const subtopic = topic.split('/')[1];
 
   logger.info({ username, role, topic, subtopic }, 'authorizeSubscribe');
-
-  if (role === 'device' && subtopic !== 'sub') {
-    callback(new Error('Invalid topic'));
-  }
 
   callback(null, subscription);
 };
