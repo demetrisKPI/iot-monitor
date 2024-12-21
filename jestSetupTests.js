@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 const aedes = require('./src/mqtt/broker/index.js');
 
 jest.useFakeTimers();

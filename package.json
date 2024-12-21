@@ -4,7 +4,7 @@
   "description": "App for energy efficiency monitoring system",
   "main": "src/index.js",
   "scripts": {
-    "broker-dev": "nodemon src/mqtt/broker/index.js",
+    "broker-dev": "nodemon src/mqtt/broker/start.js",
     "eslint": "eslint ./",
     "test": "TZ=UTC jest src/tests --ci --config=jest.config.js --detectOpenHandles --forceExit --maxWorkers=100%"
   },
@@ -29,6 +29,7 @@
     "jest": "^29.7.0",
     "mqemitter-redis": "^6.1.0",
     "mqtt": "^5.10.3",
+    "nanoid": "^5.0.9",
     "nodemon": "^3.1.9",
     "pino": "^9.5.0",
     "prettier": "^3.4.2"

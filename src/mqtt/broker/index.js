@@ -8,7 +8,14 @@ const logger = require('../../util/logger.js');
 
 const { REDIS_CONFIG, SUBTOPICS } = require('../../util/constants.js');
 
-const port = process.env.BROKER_PORT || 1883;
+const {
+  MQTT_ADMIN_USER,
+  MQTT_ADMIN_PASSWORD,
+  BROKER_PORT,
+  MQTT_DEVICE_PASSWORD,
+} = process.env;
+
+const port = BROKER_PORT || 1883;
 
 const getClientRole = ({ username, password }) => {
   if (username === MQTT_ADMIN_USER && password === MQTT_ADMIN_PASSWORD) {
