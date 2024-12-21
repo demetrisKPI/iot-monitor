@@ -1,5 +1,7 @@
 require('dotenv').config({ silent: true });
-const { generateEnergyLogs } = require('../device/sensor/generateData.js');
+
+const { generateEnergyLogs } = require('../big-data/generateEnergyLogs.js');
+const { SENSOR_DATA_INTERVAL_SECONDS } = require('../util/constants.js');
 
 describe('Generate mock data', () => {
   test('Generate mock sensor data for energy consumptionin 1 hour', () => {
@@ -10,7 +12,7 @@ describe('Generate mock data', () => {
 
     generateEnergyLogs({
       totalTime: 60,
-      intervalTime: 1,
+      intervalTime: SENSOR_DATA_INTERVAL_SECONDS,
       deviceName,
     });
 

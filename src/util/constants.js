@@ -6,4 +6,6 @@ const REDIS_CONFIG = {
   slotsRefreshTimeout: 5000,
 };
 
-module.exports = { SUBTOPICS, REDIS_CONFIG };
+const SENSOR_DATA_INTERVAL_SECONDS = 1;
+
+module.exports = { SUBTOPICS, REDIS_CONFIG, SENSOR_DATA_INTERVAL_SECONDS };

@@ -1,12 +1,12 @@
-const { publish } = require('./mqttClient.js');
+const { publish } = require('./publishMessage.js');
 
-const publishSensorLog = async (log) => {
+const publishSensorLog = async ({ client, log }) => {
   const message = JSON.stringify(log);
   const deviceName = log && log.device ? log.device : '';
 
   const topic = `${deviceName}/log`;
 
-  const response = await publish({ topic, message });
+  const response = await publish({ client, topic, message });
 
   return response;
 };
