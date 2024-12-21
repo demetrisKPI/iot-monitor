@@ -4,4 +4,5 @@ module.exports = {
   bail: false,
   maxConcurrency: 12,
   testTimeout: 30000,
+  setupFilesAfterEnv: ['./jestSetupTests.js'],
 };
