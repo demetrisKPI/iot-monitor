@@ -2,6 +2,8 @@ const { createServer } = require('net');
 const asyncMqtt = require('async-mqtt');
 
 const logger = require('../util/logger.js');
+const { streamDeviceLog } = require('./dashboard.js');
+const { writeDeviceLogsToDynamoDB } = require('./dynamoDB.js');
 
 const {
   MQTT_ADMIN_USER,
@@ -39,14 +41,31 @@ const start = () => {
   });
 
   // handle incoming messages
-  client.on('message', (topic, message, packet) => {
+  client.on('message', async (topic, message, packet) => {
+    const deviceId = topic.split('/')[0];
+    const subtopic = topic.split('/')[1];
+    const msg = JSON.parse(message.toString());
+
     logger.info(
-      { topic, packet, message: message.toString() },
+      { topic, packet, message: msg },
       'Device manager received MQTT message',
     );
 
-    if (topic.includes('log')) {
-      // do stuff
+    if (subtopic === 'log') {
+      const logTimestamp = msg.timestamp;
+
+      const cloudwatchResponse = await streamDeviceLog(msg);
+      const dynbamoDBResponse = await writeDeviceLogsToDynamoDB({
+        deviceId,
+        topic: subtopic,
+        message: msg,
+        logTimestamp,
+      });
+
+      logger.info(
+        { dynbamoDBResponse, cloudwatchResponse },
+        'Device manager proccessed /log message',
+      );
     }
   });
 

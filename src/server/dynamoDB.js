@@ -51,6 +51,7 @@ const writeDeviceLogsToDynamoDB = async ({
 }) => {
   try {
     const TableName = 'device-logs';
+
     const batchWrite = new BatchWriteItemCommand({
       RequestItems: {
         [TableName]: [
@@ -61,7 +62,7 @@ const writeDeviceLogsToDynamoDB = async ({
                 timestamp: { S: logTimestamp },
                 deviceId: { S: deviceId },
                 topic: { S: topic },
-                message: { S: message },
+                message: { S: JSON.stringify(message) },
               },
             },
           },
@@ -77,23 +78,5 @@ const writeDeviceLogsToDynamoDB = async ({
     throw error;
   }
 };
-
-// (async function () {
-//   const res = await writeDeviceLogsToDynamoDB({
-//     deviceId: 'test_dynamo_device',
-//     topic: 'log',
-//     message: 'test-message',
-//     logTimestamp: new Date().toISOString(),
-//   });
-//   console.log(res);
-// })();
-
-// (async function () {
-//   const res = await getDeviceLogsFromDynamoDB({
-//     deviceId: 'test_dynamo_device',
-//     topic: 'log',
-//   });
-//   console.log(res);
-// })();
 
 module.exports = { getDeviceLogsFromDynamoDB, writeDeviceLogsToDynamoDB };

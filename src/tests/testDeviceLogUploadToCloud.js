@@ -8,5 +8,5 @@ require('../broker/index.js');
 const deviceManager = require('../server/index.js');
 
 // subscribe device manager to topic 'test_device/log'
-const deviceId = 'test_device';
+const deviceId = 'admin_device';
 subToTopic({ client: deviceManager, topicName: `${deviceId}/log` });
