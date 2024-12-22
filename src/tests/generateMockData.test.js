@@ -4,7 +4,7 @@ const { generateEnergyLogs } = require('../big-data/generateEnergyLogs.js');
 const { SENSOR_DATA_INTERVAL_SECONDS } = require('../util/constants.js');
 
 describe('Generate mock data', () => {
-  test('Generate mock sensor data for energy consumptionin 1 hour', () => {
+  test('Generate mock sensor data for energy consumption in 1 hour', () => {
     expect.assertions(1);
 
     const deviceName = 'test_device';

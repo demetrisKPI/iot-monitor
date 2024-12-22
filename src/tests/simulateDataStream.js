@@ -16,6 +16,7 @@ const testDataStream = async ({ numberOfClients }) => {
   });
 };
 
+// test creating 10000 mqtt clients that each send a message every second
 (async function () {
   await testDataStream({ numberOfClients: 10000 });
 })();

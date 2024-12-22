@@ -1,4 +1,4 @@
-const { publish } = require('../../lib/publishMessage.js');
+const { publish } = require('../../lib/mqtt.js');
 
 const publishSensorLog = async ({ client, log }) => {
   const message = JSON.stringify(log);

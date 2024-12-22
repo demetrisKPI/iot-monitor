@@ -1,5 +1,3 @@
-require('dotenv').config({ silent: true });
-
 const asyncMqtt = require('async-mqtt');
 
 const logger = require('../../util/logger.js');

@@ -1,3 +1,4 @@
+const { createServer } = require('net');
 const asyncMqtt = require('async-mqtt');
 
 const logger = require('../util/logger.js');
@@ -7,10 +8,10 @@ const {
   MQTT_ADMIN_PASSWORD,
   BROKER_URL,
   NODE_APP_INSTANCE,
-  BROKER_PORT,
+  DEVICE_MANAGER_PORT,
 } = process.env;
 
-const port = BROKER_PORT || 1883;
+const port = DEVICE_MANAGER_PORT || 8883;
 
 const start = () => {
   const client = asyncMqtt.connect(BROKER_URL, {
@@ -18,7 +19,7 @@ const start = () => {
     password: MQTT_ADMIN_PASSWORD,
     clean: true,
     connectTimeout: 5000,
-    clientId: `${nanoid()}__${NODE_APP_INSTANCE}`,
+    clientId: `device_manager__${NODE_APP_INSTANCE}`,
   });
 
   client.on('connect', () => {
@@ -35,6 +36,18 @@ const start = () => {
 
   client.on('close', () => {
     logger.info('MQTT client Disconnected');
+  });
+
+  // handle incoming messages
+  client.on('message', (topic, message, packet) => {
+    logger.info(
+      { topic, packet, message: message.toString() },
+      'Device manager received MQTT message',
+    );
+
+    if (topic.includes('log')) {
+      // do stuff
+    }
   });
 
   const server = createServer(client.handle);

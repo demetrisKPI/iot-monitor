@@ -1,5 +1,3 @@
-require('dotenv').config({ silent: true });
-
 const logger = require('../util/logger.js');
 
 const publish = async ({ client, message, topic, qos = 0 }) => {
@@ -31,4 +29,16 @@ const publish = async ({ client, message, topic, qos = 0 }) => {
   }
 };
 
-module.exports = { publish };
+const subToTopic = ({ client, topicName, qos }) => {
+  client.subscribe(
+    topicName,
+    {
+      qos: qos || process.env.MQTT_QOS,
+    },
+    (error) => {
+      logger.info({ error }, `subscribe to ${topic} error`);
+    },
+  );
+};
+
+module.exports = { publish, subToTopic };

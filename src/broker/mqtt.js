@@ -1,5 +1,3 @@
-require('dotenv').config({ silent: true });
-
 const { createServer } = require('net');
 const aedes = require('aedes');
 const mqemitter = require('mqemitter-redis');
