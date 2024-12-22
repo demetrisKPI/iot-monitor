@@ -1,4 +1,11 @@
 require('dotenv').config({ silent: true });
+const { subToTopic } = require('../lib/mqtt.js');
+
+//start broker
+require('../broker/index.js');
+
+//start device manager
+const deviceManager = require('../server/index.js');
 
 const { SENSOR_DATA_INTERVAL_SECONDS } = require('../util/constants.js');
 const { generateClients } = require('../load-simul/generateClients.js');
@@ -12,6 +19,8 @@ const testDataStream = async ({ numberOfClients }) => {
   clients.forEach(({ client, name }) => {
     setInterval(() => {
       publishEnergyLog({ client, name });
+      // subscribe device manager to topic 'test_device/log'
+      subToTopic({ client: deviceManager, topicName: `${name}/log` });
     }, SENSOR_DATA_INTERVAL_SECONDS * 1000);
   });
 };
