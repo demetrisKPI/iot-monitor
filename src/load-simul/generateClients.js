@@ -1,4 +1,4 @@
-const { createMqttClient } = require('../device/gateway/mqttClient.js');
+const { createMqttClient } = require('../device/gateway/mqtt.js');
 
 const { nanoid } = require('../util/helpers.js');
 
@@ -10,13 +10,11 @@ const generateClients = async (num) => {
     deviceNames.push(deviceName);
   }
 
-  const clients = await Promise.all(
-    deviceNames.map(async (name) => {
-      const client = await createMqttClient(name);
+  const clients = deviceNames.map((name) => {
+    const client = createMqttClient(name);
 
-      return { client, name };
-    }),
-  );
+    return { client, name };
+  });
 
   return clients;
 };

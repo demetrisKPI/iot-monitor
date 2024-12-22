@@ -1,4 +1,4 @@
-const { publish } = require('./publishMessage.js');
+const { publish } = require('../../lib/publishMessage.js');
 
 const publishSensorLog = async ({ client, log }) => {
   const message = JSON.stringify(log);

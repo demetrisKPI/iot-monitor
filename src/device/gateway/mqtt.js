@@ -4,12 +4,17 @@ const asyncMqtt = require('async-mqtt');
 
 const logger = require('../../util/logger.js');
 
-const { BROKER_URL, MQTT_USER, MQTT_PASSWORD, NODE_APP_INSTANCE } = process.env;
+const {
+  BROKER_URL,
+  MQTT_DEVICE_USER,
+  MQTT_DEVICE_PASSWORD,
+  NODE_APP_INSTANCE,
+} = process.env;
 
-const createMqttClient = async (deviceName) => {
-  const client = await asyncMqtt.connect(BROKER_URL, {
-    username: MQTT_USER,
-    password: MQTT_PASSWORD,
+const createMqttClient = (deviceName) => {
+  const client = asyncMqtt.connect(BROKER_URL, {
+    username: MQTT_DEVICE_USER,
+    password: MQTT_DEVICE_PASSWORD,
     clean: true,
     connectTimeout: 5000,
     clientId: `${NODE_APP_INSTANCE}_${deviceName}`,

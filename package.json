@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "App for energy efficiency monitoring system",
   "scripts": {
-    "broker-dev": "nodemon src/broker/start.js",
-    "client-dev": "nodemon src/device/gateway/mqttClient.js",
+    "broker-dev": "nodemon src/broker/index.js",
+    "client-test": "nodemon src/device/gateway/index.js",
+    "device-manager-dev": "nodemon src/server/index.js",
     "eslint": "eslint ./",
     "test": "TZ=UTC jest src/tests --ci --config=jest.config.js --detectOpenHandles --forceExit --maxWorkers=100%"
   },
